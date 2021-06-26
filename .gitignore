@@ -28,3 +28,4 @@ nbdist/
 
 /config*
 *config/application.properties
+application.properties

@@ -17,7 +17,7 @@ public class BlockChainDao {
     private String blockTimestamp;
     private String blockData;
 
-    // TODO: find more efficient process to retriveing the lastest blockIndex & previousHash
+    // TODO: find more efficient process to retrieving the latest blockIndex & previousHash
     Block<Document> setPreviousIdentifiers = document -> {
         setPreviousIndex(document.getInteger("blockIndex"));
         setPreviousHash(document.getString("blockHash"));

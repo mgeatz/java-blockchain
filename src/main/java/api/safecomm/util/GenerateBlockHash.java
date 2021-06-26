@@ -9,7 +9,7 @@ public class GenerateBlockHash {
 
     public GenerateBlockHash(Integer blockIndex, String blockTimestamp, String blockData, String previousHash)
             throws NoSuchAlgorithmException {
-        String originalString = Integer.toString(blockIndex) + blockTimestamp + blockData + previousHash; // pre-encrypted str
+        String originalString = blockIndex + blockTimestamp + blockData + previousHash; // pre-encrypted str
 
         sha256.setSha256hex(originalString);
         this.blockHash = sha256.getSha256hex();

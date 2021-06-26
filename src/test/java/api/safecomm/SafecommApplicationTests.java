@@ -1,5 +1,6 @@
 package api.safecomm;
 
+import api.safecomm.blockchain.dao.BlockChainDao;
 import api.safecomm.email.EmailService;
 import api.safecomm.util.GenerateBlockHash;
 import api.safecomm.util.MongoConnect;
@@ -18,6 +19,8 @@ import java.security.NoSuchAlgorithmException;
 @SpringBootTest
 public class SafecommApplicationTests {
 
+	String email = "";
+
 	@Test
 	public void contextLoads() {
 	}
@@ -32,11 +35,22 @@ public class SafecommApplicationTests {
 
     @Test
     public void testEmail(){
-        emailService.sendMail("mgeatz@yahoo.com","Test suite test subject","Test suite test mail text");
+        emailService.sendMail(email,"Test suite test subject","Test suite test mail text");
     }
 
+	/**
+	 * CREATE FIRST BLOCK
+	 */
+	@Test
+	public void createFirstBlock() throws NoSuchAlgorithmException {
+		BlockChainDao blockChainDao = new BlockChainDao("chain", "blocks");
+		GenerateBlockHash calculatedBlockHash = new GenerateBlockHash(0, "YOLO", "210", "0");
+		String blockHashRebuilt = calculatedBlockHash.getBlockHash();
+		blockChainDao.addBlock(0, "210", "0", "YOLO", blockHashRebuilt);
+	}
 
-    /**
+
+	/**
      * VALIDATE BLOCKCHAIN
      */
 

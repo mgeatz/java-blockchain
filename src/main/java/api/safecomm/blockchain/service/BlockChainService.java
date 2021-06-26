@@ -33,6 +33,11 @@ public class BlockChainService {
     public BlockChainService (String data) throws NoSuchAlgorithmException {
 
         Integer previousIndex = blockChainDao.getPreviousIndex(); // fetch the last block's index
+
+        if (previousIndex == null) {
+            createFirstBlock();
+        }
+
         this.previousIndex = previousIndex; // add 1 to previous hash to create new
         this.blockIndex = previousIndex + 1;
 
@@ -134,6 +139,13 @@ public class BlockChainService {
             System.out.println("ERROR creating Block. Tampered block detected.");
             return false;
         }
+    }
+
+    private void createFirstBlock() throws NoSuchAlgorithmException {
+        BlockChainDao blockChainDao = new BlockChainDao("chain", "blocks");
+        GenerateBlockHash calculatedBlockHash = new GenerateBlockHash(0, "YOLO", "210", "0");
+        String blockHashRebuilt = calculatedBlockHash.getBlockHash();
+        blockChainDao.addBlock(0, "21000000", "0", "YOLO", blockHashRebuilt);
     }
 
     public String getBlockData() {
